@@ -1,25 +1,36 @@
-// task_1/js/main.ts
-
-// Define the Teacher interface
-interface Teacher {
-  readonly firstName: string;
-  readonly lastName: string;
-  fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
-  location: string;
-
-  // Allow any additional properties (index signature)
-  [key: string]: any;
+// Interface describing the constructor parameters
+interface StudentClassConstructor {
+  firstName: string;
+  lastName: string;
 }
 
-// Create an object that follows the Teacher interface
-const teacher3: Teacher = {
-  firstName: 'John',
-  lastName: 'Doe',
-  fullTimeEmployee: false,
-  location: 'London',
-  contract: false, // extra dynamic property
-};
+// Interface describing the class shape (properties & methods)
+interface StudentClassInterface {
+  firstName: string;
+  lastName: string;
+  workOnHomework(): string;
+  displayName(): string;
+}
 
-// Output the object
-console.log(teacher3);
+class StudentClass implements StudentClassInterface {
+  firstName: string;
+  lastName: string;
+
+  constructor({ firstName, lastName }: StudentClassConstructor) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  workOnHomework(): string {
+    return "Currently working";
+  }
+
+  displayName(): string {
+    return this.firstName;
+  }
+}
+
+// Example usage:
+const student = new StudentClass({ firstName: "Alice", lastName: "Smith" });
+console.log(student.displayName());    // Alice
+console.log(student.workOnHomework()); // Currently working
